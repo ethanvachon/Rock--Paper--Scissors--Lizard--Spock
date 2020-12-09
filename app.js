@@ -1,5 +1,6 @@
 let player
 let computer
+let winStreak = 0
 
 const choices = {
   rock: {
@@ -53,7 +54,7 @@ function drawChoices () {
   let choiceNames = Object.keys(choices)
   let buttons = ''
   choiceNames.forEach(choice => {
-    buttons += `<button class="btn btn-outline-dark p-5 m-2" onclick="playerChoice('${choice}')">${choice.toUpperCase()}</button>`
+    buttons += `<button class="btn btn-outline-dark p-3 m-2" onclick="playerChoice('${choice}')">${choice.toUpperCase()}</button>`
   })
   document.getElementById('buttons').innerHTML = buttons
 }
@@ -88,6 +89,13 @@ function computerChoice (){
 function determineWinner () {
   computerChoice()
   document.getElementById('winner').innerText = choices[player][computer]
+  if(choices[player][computer] == 'YOU WIN!'){
+    winStreak++
+    document.getElementById('winstreak').innerText = winStreak.toString()
+  } else {
+    winStreak= 0
+    document.getElementById('winstreak').innerText = winStreak.toString()
+  }
 }
 
 
