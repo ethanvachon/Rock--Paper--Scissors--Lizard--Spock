@@ -1,6 +1,7 @@
 let player
 let computer
 let winStreak = 0
+let highScore = 0
 
 const choices = {
   rock: {
@@ -92,11 +93,27 @@ function determineWinner () {
   if(choices[player][computer] == 'YOU WIN!'){
     winStreak++
     document.getElementById('winstreak').innerText = winStreak.toString()
+    if(winStreak > highScore){
+      highScore = winStreak
+      document.getElementById('high-score').innerText = highScore.toString()
+      saveScore()
+    }
   } else {
     winStreak= 0
     document.getElementById('winstreak').innerText = winStreak.toString()
   }
 }
 
+function saveScore (){
+  window.localStorage.setItem("score", JSON.stringify(highScore))
+}
+function loadScore(){
+  let scoreData = JSON.parse(window.localStorage.getItem('score'))
+  if (scoreData){
+    highScore = scoreData
+  }
+  document.getElementById('high-score').innerText = highScore.toString()
+}
 
 drawChoices()
+loadScore()
